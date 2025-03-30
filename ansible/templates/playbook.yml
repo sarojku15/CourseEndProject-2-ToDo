@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   vars:
-    repo_url: "https://github.com/yourusername/todo-app.git"
+    repo_url: "https://github.com/sarojku15/CourseEndProject-2-ToDo.git"
     public_ip: "{{ ansible_host }}"
   
   tasks:
