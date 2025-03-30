@@ -1,0 +1,27 @@
+- name: Deploy Todo Application
+  hosts: all
+  become: yes
+  vars:
+    repo_url: "https://github.com/yourusername/todo-app.git"
+    public_ip: "{{ ansible_host }}"
+  
+  tasks:
+    - name: Clone repository
+      git:
+        repo: "{{ repo_url }}"
+        dest: /opt/todo-app
+        clone: yes
+        update: yes
+
+    - name: Create .env file
+      template:
+        src: templates/.env.j2
+        dest: /opt/todo-app/.env
+
+    - name: Deploy with Docker Compose
+      community.docker.docker_compose_v2:
+        project_src: /opt/todo-app
+        build: yes
+        restart: always
+        pull: yes
+        recreate: yes

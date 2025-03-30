@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .todo-item { padding: 10px; border-bottom: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>My Todos</h1>
+    <div id="todos-container"></div>
+
+    <script>
+        fetch('http://localhost:5000/todos')
+            .then(response => response.json())
+            .then(todos => {
+                const container = document.getElementById('todos-container');
+                todos.forEach(todo => {
+                    const div = document.createElement('div');
+                    div.className = 'todo-item';
+                    div.textContent = todo.task;
+                    container.appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
